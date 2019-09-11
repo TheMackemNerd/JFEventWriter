@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Event Generator</title>
+
+    <script type="text/javascript" src="aws-sdk.min.js"></script>
+    <script type="text/javascript" src="event.js"></script>
+
+</head>
+<body style="font-family:Calibri">
+    <div style="margin-left:10px; margin-top:20px;">
+        <table width="50%">
+            <tr>
+                <td width="30%">Client ID:</td>
+                <td width="70%"><input type="text" id="txtClient" /></td>
+            </tr>
+            <tr>
+                <td width="30%">Batch Text:</td>
+                <td width="70%"><input type="text" id="txtBatch" /></td>
+            </tr>
+            <tr>
+                <td width="30%">Event Count:</td>
+                <td width="70%"><input type="text" id="txtEvents" value="10" /></td>
+            </tr>
+        </table>
+        <br/>
+        <button onclick="prepareSend();">Generate Events</button>
+        <br /><br/>
+        <div>
+            <span id="txtOutput"></span>
+        </div>
+    </div>
+
+    <script>
+        function prepareSend() {
+
+            var output = "";
+            var skip = false;            
+
+            var client = document.getElementById("txtClient").value;
+            var batchtext = document.getElementById("txtBatch").value;
+            var eventcount = document.getElementById("txtEvents").value;
+
+            if (client == '') {
+                output += "Client ID must not be empty<br/>";
+                skip = true;
+            }
+
+            if (isNaN(client)) {
+                output += "Client ID must be numeric<br/>";
+                skip = true;
+            }
+
+            if (batchtext == '') {
+                output += "Batch Text must not be empty <br/>";
+                skip = true;
+            }
+
+            if (eventcount == '') {
+                output += "Event Count must not be empty<br/>";
+                skip = true;
+            }
+
+            if (isNaN(eventcount)) {
+                output += "Event Count must be numeric<br/>";
+                skip = true;
+            }
+
+            if (eventcount > 1000) {
+                output += "Event Count must be less than 1000<br/>";
+                skip = true;
+            }
+
+            if (skip == false) {
+
+                document.getElementById("txtOutput").innerHTML = "Sending Events...";
+                SendEvent(client, batchtext, eventcount);
+                document.getElementById("txtOutput").innerHTML = "Events Sent";
+            }
+            else {
+                document.getElementById("txtOutput").innerHTML = output;
+            }
+
+
+        }
+
+    </script>
+
+</body>
+</html>
