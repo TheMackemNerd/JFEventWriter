@@ -8,8 +8,8 @@ phases:
     commands:
       - docker build $IMAGE_REPO_NAME .
 
-artifacts:
-  files:
-    builddetails.json
+#artifacts:
+  #files:
+    #imagedefinitions.json
 
 
