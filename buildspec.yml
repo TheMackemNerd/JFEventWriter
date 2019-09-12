@@ -6,7 +6,7 @@ phases:
       docker: 18
   build:
     commands:
-      - docker build -t $IMAGE_REPO_NAME .
+      - docker build $IMAGE_REPO_NAME .
 
 artifacts:
   files:
